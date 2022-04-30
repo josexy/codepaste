@@ -45,9 +45,19 @@ export interface IResultPaste {
 
 const copyToClipboard = (text: string) => {
     try {
-        (async () => {
-            await navigator.clipboard.writeText(text)
-        })()
+        if (navigator.clipboard && window.isSecureContext) {
+            // navigator clipboard 向剪贴板写文本
+            (async () => {
+                await navigator.clipboard.writeText(text)
+            })()
+        } else {
+            const textarea = document.createElement('textarea')
+            textarea.value = text
+            document.body.appendChild(textarea)
+            textarea.select()
+            document.execCommand('copy')
+            document.body.removeChild(textarea)
+        }
     } catch (error) {
         console.log(error);
     }
