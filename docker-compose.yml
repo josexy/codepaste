@@ -1,0 +1,60 @@
+version: '3.9'
+
+services:
+  codepaste1:
+    build: ./gocodepaste/
+    image: gocodepaste:v1
+    container_name: codepaste1
+    restart: always
+    links:
+      - mysql
+      - redis
+    volumes:
+      - ./gocodepaste/conf:/app/conf
+      - ./gocodepaste/logs:/app/logs
+
+  codepaste2:
+    build: ./gocodepaste/
+    image: gocodepaste:v1
+    container_name: codepaste2
+    restart: always
+    links:
+      - mysql
+      - redis
+    volumes:
+      - ./gocodepaste/conf:/app/conf
+      - ./gocodepaste/logs:/app/logs
+
+  mysql:
+    image: mariadb
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: db_codepaste
+    volumes:
+      - ./mnt/mysql:/var/lib/mysql
+      - ./gocodepaste/mysql/init:/docker-entrypoint-initdb.d/
+      - ./gocodepaste/mysql/sql:/opt/sql
+
+  redis:
+    image: redis
+    container_name: redis
+    restart: always
+    volumes:
+      - ./mnt/redis:/data/
+
+  web:
+    build: ./codepaste/
+    image: web:v1
+    container_name: web
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./gocodepaste/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./gocodepaste/nginx/ssl:/etc/nginx/ssl
+    links:
+      - codepaste1
+      - codepaste2
+    command: [ 'nginx', '-g', 'daemon off;' ]

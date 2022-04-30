@@ -1,0 +1,27 @@
+server:
+  address: :10086
+  mode: release
+  logfile_dir: ./logs/
+
+jwt:
+  jwt_secret: x20SDx3c
+  jwt_access_token_expired: 120
+  jwt_refresh_token_expired: 300
+
+mysql:
+  hostname: 127.0.0.1
+  port: 3306
+  username: root
+  password: 12345
+  db: db_codepaste
+
+redis:
+  hostname: 127.0.0.1
+  port: 6379
+  password:
+  db: 0
+  cluster_enable: false
+  cluster_ips:
+    - 127.0.0.1:6381
+    - 127.0.0.1:6382
+    - 127.0.0.1:6383
