@@ -78,7 +78,7 @@ export default function GHeader() {
                             </NavDropdown.Item>
                         </NavDropdown>
                         <Nav.Link as={Link} to={"/about"}>关于</Nav.Link>
-                        <Nav.Link target={"_blank"} href="https://github.com/josexy/gocodepaste">Github</Nav.Link>
+                        <Nav.Link target={"_blank"} href="https://github.com/josexy/codepaste">Github</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

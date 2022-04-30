@@ -2,7 +2,7 @@ export default function GFooter() {
     return (
         <div className="mt-2 mb-2">
             <div className="fw-bold text-center">
-                <a rel={"noreferrer"} target={"_blank"} href="https://github.com/josexy/gocodepaste">
+                <a rel={"noreferrer"} target={"_blank"} href="https://github.com/josexy/codepaste">
                     Github
                 </a>
                 <span>&nbsp;-&nbsp;</span>
